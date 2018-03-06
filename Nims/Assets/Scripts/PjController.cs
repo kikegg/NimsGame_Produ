@@ -14,6 +14,8 @@ public class PjController : MonoBehaviour {
 	public float groundCheckRadius;
 	public LayerMask groundMask;
 
+	public float timer;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -29,6 +31,7 @@ public class PjController : MonoBehaviour {
 		rb.velocity = new Vector2 (Input.GetAxis ("Horizontal") * speed, rb.velocity.y);
 
 		anim.SetBool ("Grounded", grounded);
+		anim.SetFloat("VelY", rb.velocity.y);
 
 		if (Input.GetKey (KeyCode.A)) {
 			transform.localScale = new Vector3 (-1, 1, 1);
@@ -40,8 +43,9 @@ public class PjController : MonoBehaviour {
 			anim.SetBool ("Moving", false);
 		}
 
-		if (Input.GetKeyDown (KeyCode.W) && grounded) {
+		if (Input.GetKey (KeyCode.W) && grounded) {
 			rb.velocity = new Vector2 (0, jumpHeight);
+			timer+=Time.deltaTime;
 		}
 	}
 }
