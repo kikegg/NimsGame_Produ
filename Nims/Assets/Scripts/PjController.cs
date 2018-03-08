@@ -27,7 +27,14 @@ public class PjController : MonoBehaviour {
     float blinkTimer;
     public float blinkTime = 1f;
     bool facingRight;
-    bool canBlink = true;
+    public bool canBlink = true;
+
+    //Suriken
+    public GameObject suriken;
+    public Transform throwPoint;
+    float surikenTimer=1.5f;
+    public float surikenWait;
+    public float puedeLanzar=0;
 
 
     // Use this for initialization
@@ -38,38 +45,51 @@ public class PjController : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		grounded = Physics2D.OverlapCircle (groundCheckPoint.position, groundCheckRadius, groundMask);
-        touchingWall = Physics2D.OverlapCircle(wallCheck.position, wallTouchRadius, whatIsWall);
 
-        anim.SetBool("Grounded", grounded);
-
-        if (transform.localScale.x == 1)
-            facingRight = true;
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+            anim.SetBool("Moving", true);
+        }
+        else if (Input.GetAxis("Horizontal") > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+            anim.SetBool("Moving", true);
+        }
         else
-            facingRight = false;
-    }
-
-	// Update is called once per frame
-	void Update () {
-		rb.velocity = new Vector2 (Input.GetAxis ("Horizontal") * speed, rb.velocity.y);
-
-		if (Input.GetAxis("Horizontal")<0) {
-			transform.localScale = new Vector3 (-1, 1, 1);
-			anim.SetBool ("Moving", true);
-		} else if (Input.GetAxis("Horizontal") > 0) {
-			transform.localScale = new Vector3 (1, 1, 1);
-			anim.SetBool ("Moving", true);
-		} else {
-			anim.SetBool ("Moving", false);
-		}
-
-		if (Input.GetKey (KeyCode.W) && grounded) {
-			rb.velocity = new Vector2 (0, jumpHeight);
+        {
+            anim.SetBool("Moving", false);
         }
 
-        if (touchingWall &&  !grounded && Input.GetKey(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && grounded)
         {
-            WallJump();
+            rb.velocity = new Vector2(0, jumpHeight);
+        }
+        else if (Input.GetKeyDown(KeyCode.W) && touchingWall)
+        {
+            if (facingRight)
+            {
+                rb.velocity = new Vector2(-50, 18);
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else if (!facingRight)
+            {
+                rb.velocity = new Vector2(50, 18);
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+        }
+
+        //Shot
+        if (Input.GetKeyDown(KeyCode.K) && (puedeLanzar >= surikenTimer))
+        {
+            anim.SetTrigger("Throw");
+            surikenWait += Time.deltaTime;
+            if (surikenWait >= 0.02f)
+            {
+                GameObject surikenClone = (GameObject)Instantiate(suriken, throwPoint.position, throwPoint.rotation);
+                surikenClone.transform.localScale = transform.localScale;
+            }
+            puedeLanzar = 0;
         }
 
         //Blink
@@ -91,13 +111,26 @@ public class PjController : MonoBehaviour {
             canBlink = true;
             blinkTimer = 0;
         }
-
     }
 
+	// Update is called once per frame
+	void Update () {
 
-    void WallJump()
-    {
-        rb.AddForce(new Vector2(jumpPushForce, jumpHeight));
+        grounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundMask);
+        touchingWall = Physics2D.OverlapCircle(wallCheck.position, wallTouchRadius, whatIsWall);
+
+        anim.SetBool("Grounded", grounded);
+
+        rb.velocity = new Vector2 (Input.GetAxis ("Horizontal") * speed, rb.velocity.y);
+
+        if (transform.localScale.x == 1)
+            facingRight = true;
+        else
+            facingRight = false;
+
+        puedeLanzar += Time.deltaTime;
+        surikenWait = 0;
+
     }
 
     void Blink()
@@ -110,6 +143,4 @@ public class PjController : MonoBehaviour {
 
         transform.position += blink;
     }
-
-
 }
