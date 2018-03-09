@@ -11,7 +11,6 @@ public class BoxAction : MonoBehaviour {
 	void Start () {
         rBox = GetComponent<Rigidbody2D>();
         fJointBox = GetComponent<FixedJoint2D>();
-
     }
 	
 	// Update is called once per frame
