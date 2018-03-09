@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BoxPush : MonoBehaviour {
-    Rigidbody2D rb;
-    bool empujarCaja = false;
+    public Rigidbody2D rb;
+    public bool empujarCaja = false;
+    public GameObject box;
+    
+
 
     void Start()
     {
@@ -16,9 +19,20 @@ public class BoxPush : MonoBehaviour {
 
         if (empujarCaja == true)
         {
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             { 
+                box.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                box.GetComponent<FixedJoint2D>().connectedBody = rb;
+                box.GetComponent<FixedJoint2D>().enabled = true;
             }
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            box.GetComponent<FixedJoint2D>().enabled = false;
+            box.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            empujarCaja = false;
         }
 
     }
@@ -26,18 +40,14 @@ public class BoxPush : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "pushable" && Input.GetKey(KeyCode.E))
-        {       
-            coll.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            coll.gameObject.GetComponent<FixedJoint2D>().connectedBody = rb;
-            coll.gameObject.GetComponent<FixedJoint2D>().enabled = true;
-
-          /*  if (Input.GetKeyDown(KeyCode.Q))
-            {
-                coll.gameObject.GetComponent<FixedJoint2D>().enabled = false;
-                coll.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-            }*/
-
+        if (coll.gameObject.tag == "pushable" )
+        {
+            empujarCaja = true;
+            box = coll.gameObject;
+        }
+        else
+        {
+            empujarCaja = false;
         }
       
 
