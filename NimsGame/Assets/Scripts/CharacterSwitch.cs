@@ -10,6 +10,8 @@ public class CharacterSwitch : MonoBehaviour {
     public Pj2Controller p2;
     public Animator p2Anim;
     public Rigidbody2D p2Rigid;
+    public bool onGroundP1;
+    public bool onGroundP2;
 
     // Use this for initialization
     void Start () {
@@ -22,9 +24,11 @@ public class CharacterSwitch : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        onGroundP1 = p1.grounded;
+        onGroundP2 = p2.grounded;
         if (Input.GetKeyDown(KeyCode.O))
         {
-            if(p1.enabled== true)
+            if((p1.enabled== true) && (onGroundP1 == true))
             {
                 p1.enabled = false;
                 p1Anim.SetBool("Moving", false);
@@ -32,7 +36,7 @@ public class CharacterSwitch : MonoBehaviour {
                 p2.enabled = true;
                 p2Rigid.bodyType = RigidbodyType2D.Dynamic;
             }
-            else
+            else if ((p2.enabled==true) && (onGroundP2==true))
             {
                 p1.enabled = true;
                 p1Rigid.bodyType = RigidbodyType2D.Dynamic;
