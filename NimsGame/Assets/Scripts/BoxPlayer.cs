@@ -18,7 +18,7 @@ public class BoxPlayer : MonoBehaviour {
         {
             positionP1 = new Vector3(other.transform.position.x, this.transform.position.y, other.transform.position.z);
             this.transform.position = positionP1;
-            return;
+            this.transform.localScale = new Vector3(1, 1, 1);
         }
     }
 }
