@@ -12,13 +12,20 @@ public class BoxPlayer : MonoBehaviour {
         positionP1 = new Vector3(0, 0, 0);
     }
 
-    private void OnCollisionStay2D(Collision2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if ((other.gameObject.tag == "pushable") && (boxJoint.enabled == true))
+        try
         {
-            positionP1 = new Vector3(other.transform.position.x, this.transform.position.y, other.transform.position.z);
-            this.transform.position = positionP1;
-            this.transform.localScale = new Vector3(1, 1, 1);
+            if ((other.gameObject.transform.parent.tag == "pushable") && (boxJoint.enabled == true))
+            {
+                positionP1 = new Vector3(other.transform.position.x, this.transform.position.y, other.transform.position.z);
+                this.transform.position = positionP1;
+                this.transform.localScale = new Vector3(1, 1, 1);
+            }
+        }
+        catch (System.NullReferenceException)
+        {
+
         }
     }
 }
