@@ -9,10 +9,16 @@ public class Menus : MonoBehaviour {
     public GameObject options;
 	private bool paused = false;
 
-	void Start(){
+    public GameObject gameOver;
+    public PjController pj1;
+    public Pj2Controller pj2;
+
+
+    void Start(){
 		pause.SetActive (false);
         options.SetActive(false);
-	}
+        gameOver.SetActive(false);
+    }
 
 	void Update(){
 		if (Input.GetKeyDown (KeyCode.Escape)) {
@@ -26,6 +32,11 @@ public class Menus : MonoBehaviour {
             pause.SetActive (false);
             Time.timeScale = 1;
 		}
+
+        if((pj1.isDead==true) || (pj2.isDead==true) || (pj1.lives == 0) || (pj2.lives == 0))
+        {
+            gameOver.SetActive(true);
+        }
 	}
 
 	public void Continue (){

@@ -12,12 +12,16 @@ public class CharacterSwitch : MonoBehaviour {
     public Rigidbody2D p2Rigid;
     public bool onGroundP1;
     public bool onGroundP2;
+    public GameObject p1Lives;
+    public GameObject p2Lives;
 
     // Use this for initialization
     void Start () {
         p1.enabled = true;
+        p1Lives.SetActive(true);
         p1Rigid.bodyType = RigidbodyType2D.Dynamic;
         p2.enabled = false;
+        p2Lives.SetActive(false);
         p2Rigid.bodyType = RigidbodyType2D.Static;
         p2Anim.SetBool("Grounded", true);
     }
@@ -31,16 +35,20 @@ public class CharacterSwitch : MonoBehaviour {
             if((p1.enabled== true) && (onGroundP1 == true))
             {
                 p1.enabled = false;
+                p1Lives.SetActive(false);
                 p1Anim.SetBool("Moving", false);
                 p1Rigid.bodyType = RigidbodyType2D.Static;
                 p2.enabled = true;
+                p2Lives.SetActive(true);
                 p2Rigid.bodyType = RigidbodyType2D.Dynamic;
             }
             else if ((p2.enabled==true) && (onGroundP2==true))
             {
                 p1.enabled = true;
+                p1Lives.SetActive(true);
                 p1Rigid.bodyType = RigidbodyType2D.Dynamic;
                 p2.enabled = false;
+                p2Lives.SetActive(false);
                 p2Anim.SetBool("Moving", false);
                 p2Rigid.bodyType = RigidbodyType2D.Static;
             }

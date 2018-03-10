@@ -36,13 +36,23 @@ public class PjController : MonoBehaviour {
     public float surikenWait;
     public float puedeLanzar=0;
 
+    //Lives&GameOver
+    public bool isDead=false;
+    public int lives;
+    public GameObject[] p1Hearts;
+    public AudioSource hurtSound;
+    public GameObject gameOver;
+    public AudioSource gameOverS;
+
+
 
     // Use this for initialization
     void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
         canBlink = true;
-	}
+        isDead = false;
+    }
 
 	void FixedUpdate(){
 
@@ -131,6 +141,14 @@ public class PjController : MonoBehaviour {
         puedeLanzar += Time.deltaTime;
         surikenWait = 0;
 
+        if (lives <= 0)
+        {   
+            //animación muerte personaje
+            gameOver.SetActive(true);
+            this.gameObject.SetActive(false);
+            gameOverS.Play();
+        }
+
     }
 
     void Blink()
@@ -142,6 +160,23 @@ public class PjController : MonoBehaviour {
             blink = new Vector3(-blinkDistance, 0, 0);
 
         transform.position += blink;
+    }
+
+    public void HurtPlayer()
+    {
+        lives -= 1;
+        for (int i = 0; i < p1Hearts.Length; i++)
+        {
+            if (lives > i)
+            {
+                p1Hearts[i].SetActive(true);
+            }
+            else
+            {
+                p1Hearts[i].SetActive(false);
+            }
+        }
+        hurtSound.Play();
     }
 
 }
