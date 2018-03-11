@@ -7,6 +7,7 @@ public class PjController : MonoBehaviour {
 	Rigidbody2D rb;
 	public float speed;
 	Animator anim;
+    public bool dobleSalto;
 
     //JumpVariables
     public bool grounded;
@@ -55,6 +56,10 @@ public class PjController : MonoBehaviour {
     }
 
 	void FixedUpdate(){
+        if (grounded)
+        {
+            dobleSalto = false;
+        }
 
         if (Input.GetAxis("Horizontal") < 0)
         {
@@ -71,11 +76,22 @@ public class PjController : MonoBehaviour {
             anim.SetBool("Moving", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && grounded)
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            rb.velocity = new Vector2(0, jumpHeight);
+            if (grounded || !dobleSalto)
+            {
+                rb.velocity = new Vector2(0, jumpHeight);
+                if (!dobleSalto && !grounded)
+                {
+                    dobleSalto = true;
+                }
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.W) && touchingWall)
+
+        /*
+         * WALLJUMP
+         * 
+         * else if (Input.GetKeyDown(KeyCode.W) && touchingWall)
         {
             if (facingRight)
             {
@@ -87,7 +103,8 @@ public class PjController : MonoBehaviour {
                 rb.velocity = new Vector2(50, 18);
                 transform.localScale = new Vector3(1, 1, 1);
             }
-        }
+        }*/
+
 
         //Shot
         if (Input.GetKeyDown(KeyCode.K) && (puedeLanzar >= surikenTimer))
