@@ -21,7 +21,7 @@ public class BoxPush : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.E))
             { 
-                box.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                box.GetComponent<Rigidbody2D>().mass = 1;
                 box.GetComponent<FixedJoint2D>().connectedBody = rb;
                 box.GetComponent<FixedJoint2D>().enabled = true;
             }
@@ -31,7 +31,7 @@ public class BoxPush : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.E))
         {
             box.GetComponent<FixedJoint2D>().enabled = false;
-            box.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            box.GetComponent<Rigidbody2D>().mass = 1000;
             empujarCaja = false;
         }
 

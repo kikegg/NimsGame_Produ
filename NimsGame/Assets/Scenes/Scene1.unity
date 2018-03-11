@@ -3544,11 +3544,11 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 896202220}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -4986,6 +4986,11 @@ Prefab:
       propertyPath: boxJoint
       value: 
       objectReference: {fileID: 896202223}
+    - target: {fileID: 114752224345954380, guid: 2ab4de4415e6fa74f9ff5e5af9a8bd92,
+        type: 2}
+      propertyPath: p2
+      value: 
+      objectReference: {fileID: 1388853279}
     - target: {fileID: 114772152086120644, guid: 2ab4de4415e6fa74f9ff5e5af9a8bd92,
         type: 2}
       propertyPath: p1Hearts.Array.data[0]
@@ -5452,6 +5457,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.8866882, y: 2.1056921}
   m_EdgeRadius: 0
+--- !u!1 &1388853279 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1242876341195830, guid: c783480b7d90418479d5f8c474f6bd08,
+    type: 2}
+  m_PrefabInternal: {fileID: 875097292}
 --- !u!1 &1428046484
 GameObject:
   m_ObjectHideFlags: 0

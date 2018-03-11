@@ -5,6 +5,7 @@ using UnityEngine;
 public class Suriken : MonoBehaviour {
     public float surikenSpeed;
     private Rigidbody2D theRB;
+    public AudioSource surikenSound;
 
     //public GameObject surikenEffect;
 
@@ -20,13 +21,17 @@ public class Suriken : MonoBehaviour {
         theRB.velocity = new Vector2(surikenSpeed * transform.localScale.x, 0);
     }
 
-    /*void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy") { 
             Destroy(other.gameObject);
-        
-        Instantiate(surikenEffect, transform.position, transform.rotation);
-        Destroy(gameObject);
-    }*/
+            Destroy(gameObject);
+        }
+        else if (!(other.gameObject.tag == "Player"))
+        {
+            Destroy(gameObject);
+        }
+        surikenSound.Play();
+    }
 }
 

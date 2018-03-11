@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxJoint: {fileID: 0}
+  p2: {fileID: 0}
 --- !u!114 &114772152086120644
 MonoBehaviour:
   m_ObjectHideFlags: 1

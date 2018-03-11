@@ -6,6 +6,7 @@ public class BoxPlayer : MonoBehaviour {
 
     public FixedJoint2D boxJoint;
     Vector3 positionP1;
+    public GameObject p2;
 
     private void Update()
     {
@@ -20,7 +21,7 @@ public class BoxPlayer : MonoBehaviour {
             {
                 positionP1 = new Vector3(other.transform.position.x, this.transform.position.y, other.transform.position.z);
                 this.transform.position = positionP1;
-                this.transform.localScale = new Vector3(1, 1, 1);
+                this.transform.localScale = p2.transform.localScale;
             }
         }
         catch (System.NullReferenceException)
