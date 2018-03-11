@@ -15,6 +15,8 @@ public class BoxPlayer : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        this.gameObject.GetComponent<Rigidbody2D>().mass = 1;
+        //this.gameObject.GetComponent<Rigidbody2D>().drag = 1;
         try
         {
             if ((other.gameObject.transform.parent.tag == "pushable") && (boxJoint.enabled == true))
