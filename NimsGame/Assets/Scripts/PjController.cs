@@ -34,7 +34,7 @@ public class PjController : MonoBehaviour {
     public GameObject suriken;
     public Transform throwPoint;
     float surikenTimer=1.5f;
-    public float surikenWait;
+    //public float surikenWait;
     public float puedeLanzar=0;
 
     //Lives&GameOver
@@ -110,12 +110,12 @@ public class PjController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.K) && (puedeLanzar >= surikenTimer))
         {
             anim.SetTrigger("Throw");
-            surikenWait += Time.deltaTime;
-            if (surikenWait >= 0.02f)
-            {
-                GameObject surikenClone = (GameObject)Instantiate(suriken, throwPoint.position, throwPoint.rotation);
-                surikenClone.transform.localScale = transform.localScale;
-            }
+            //surikenWait += Time.deltaTime;
+            //if (surikenWait >= 0.02f)
+            //{
+            GameObject surikenClone = (GameObject)Instantiate(suriken, throwPoint.position, throwPoint.rotation);
+            surikenClone.transform.localScale = transform.localScale;
+            //}
             puedeLanzar = 0;
         }
 
@@ -156,7 +156,7 @@ public class PjController : MonoBehaviour {
             facingRight = false;
 
         puedeLanzar += Time.deltaTime;
-        surikenWait = 0;
+        //surikenWait = 0;
 
         if (lives <= 0)
         {   
