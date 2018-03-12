@@ -8,7 +8,7 @@ public class GameOverFall: MonoBehaviour {
 	public AudioSource gameOverS;
 
 	public void OnTriggerEnter2D(Collider2D other){
-		if ((other.gameObject.tag == "Player") || (other.gameObject.tag=="Player2")) {
+        if ((other.gameObject.tag == "Player") || (other.gameObject.tag=="Player2")) {
 			gameOver.SetActive (true);
 			other.gameObject.SetActive (false);
 			gameOverS.Play ();

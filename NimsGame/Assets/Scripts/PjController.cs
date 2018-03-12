@@ -11,16 +11,16 @@ public class PjController : MonoBehaviour {
 
     //JumpVariables
     public bool grounded;
-    bool touchingWall = false;
+    //bool touchingWall = false;
     public float jumpHeight;
 
 	public Transform groundCheckPoint;
-    public Transform wallCheck;
+    //public Transform wallCheck;
     public float groundCheckRadius;
-    public float wallTouchRadius;
+    //public float wallTouchRadius;
 	public LayerMask groundMask;
-    public LayerMask whatIsWall;
-    public float jumpPushForce = 10f;
+    //public LayerMask whatIsWall;
+    //public float jumpPushForce = 10f;
 
 
     //BlinkVariables
@@ -144,7 +144,7 @@ public class PjController : MonoBehaviour {
 	void Update () {
 
         grounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundMask);
-        touchingWall = Physics2D.OverlapCircle(wallCheck.position, wallTouchRadius, whatIsWall);
+        //touchingWall = Physics2D.OverlapCircle(wallCheck.position, wallTouchRadius, whatIsWall);
 
         anim.SetBool("Grounded", grounded);
 
