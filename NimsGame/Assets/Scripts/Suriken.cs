@@ -6,6 +6,7 @@ public class Suriken : MonoBehaviour {
     public float surikenSpeed;
     private Rigidbody2D theRB;
     public AudioSource surikenSound;
+    public GameObject isOn;
 
     //public GameObject surikenEffect;
 
@@ -31,6 +32,29 @@ public class Suriken : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+
+        if(other.gameObject.tag == "Btn1" || other.gameObject.tag == "Btn2" || other.gameObject.tag == "Btn3" || other.gameObject.tag == "Btn4")
+        {
+            other.gameObject.GetComponent<SpriteRenderer>().sprite = isOn.GetComponent<SpriteRenderer>().sprite;
+            if(other.gameObject.tag == "Btn1")
+            {
+                Vector3 newPos = new Vector3(0, 0, 7.912f);
+                other.gameObject.transform.GetChild(0).gameObject.transform.eulerAngles = newPos;
+            }
+            if (other.gameObject.tag == "Btn2")
+            {
+                other.gameObject.transform.GetChild(0).gameObject.GetComponent<PlatformMove>().enabled=true;
+            }
+            if (other.gameObject.tag == "Btn3")
+            {
+                other.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            if (other.gameObject.tag == "Btn4")
+            {
+                other.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            }
+        }
+        
         surikenSound.Play();
     }
 }

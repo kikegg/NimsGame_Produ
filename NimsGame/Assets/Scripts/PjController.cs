@@ -196,4 +196,22 @@ public class PjController : MonoBehaviour {
         hurtSound.Play();
     }
 
+    void OnCollisionEnter2D(Collision2D obj)
+    {
+
+        if (obj.transform.tag == "Move")
+        {
+
+            transform.parent = obj.transform;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D obj)
+    {
+        if (obj.transform.tag == "Move")
+        {
+            transform.parent = null;
+        }
+    }
+
 }

@@ -7,6 +7,12 @@ TagManager:
   - Player2
   - pushable
   - Floor
+  - Btn1
+  - Btn2
+  - Btn3
+  - Btn4
+  - Btn5
+  - Move
   layers:
   - Default
   - TransparentFX

@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class CharacterSwitch : MonoBehaviour {
 
-    public GameObject p1Go;
     public GameObject ip1;
     public PjController p1;
     public Animator p1Anim;
     public Rigidbody2D p1Rigid;
-    public GameObject p2Go;
     public GameObject ip2;
     public Pj2Controller p2;
     public Animator p2Anim;
@@ -30,6 +28,8 @@ public class CharacterSwitch : MonoBehaviour {
         p2Lives.SetActive(false);
         p2Rigid.mass = 100000;
         p2Anim.SetBool("Grounded", true);
+        p1Rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+        p2Rigid.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
     }
 	
 	// Update is called once per frame
