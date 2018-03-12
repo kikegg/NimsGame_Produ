@@ -18,9 +18,11 @@ public class BoxPush : MonoBehaviour {
     {
 
         if (empujarCaja == true)
-        {   
+        {
+            this.gameObject.GetComponent<Pj2Controller>().facingRight = true;
             if (Input.GetKeyDown(KeyCode.E))
-            { 
+            {
+                this.gameObject.GetComponent<Animator>().Play("Push");
                 box.GetComponent<Rigidbody2D>().mass = 1;
                 box.GetComponent<FixedJoint2D>().connectedBody = rb;
                 box.GetComponent<FixedJoint2D>().enabled = true;
@@ -31,6 +33,7 @@ public class BoxPush : MonoBehaviour {
 
         if (Input.GetKeyUp(KeyCode.E))
         {
+            this.gameObject.GetComponent<Animator>().Play("Idle");
             box.GetComponent<FixedJoint2D>().enabled = false;
             box.GetComponent<Rigidbody2D>().mass = 1000;
             box.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;

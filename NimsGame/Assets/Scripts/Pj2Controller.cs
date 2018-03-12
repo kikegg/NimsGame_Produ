@@ -18,7 +18,7 @@ public class Pj2Controller : MonoBehaviour
     public LayerMask groundMask;
     public float jumpPushForce = 10f;
 
-    bool facingRight;
+    public bool facingRight;
 
     //Lives&GameOver
     public bool isDead=false;
