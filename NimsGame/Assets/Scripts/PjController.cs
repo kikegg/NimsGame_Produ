@@ -46,7 +46,6 @@ public class PjController : MonoBehaviour {
     public AudioSource gameOverS;
 
 
-
     // Use this for initialization
     void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -203,10 +202,6 @@ public class PjController : MonoBehaviour {
         {
 
             transform.parent = obj.transform;
-        }
-        if (obj.transform.tag == "Enemy")
-        {
-            HurtPlayer();
         }
     }
 
