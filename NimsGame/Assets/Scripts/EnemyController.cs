@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-	public float health = 100f;
+	//public float health = 100f;
 
 	public  Transform target1;
 	public  Transform target2;
@@ -24,7 +24,9 @@ public class EnemyController : MonoBehaviour
 
 	public Pj2Controller pj2Controller;
 
-	public float attackDamage;
+    //public float attackDamage;
+
+    int i = 0;
 
 
 	void Start()
@@ -72,8 +74,9 @@ public class EnemyController : MonoBehaviour
 			if(direction.magnitude < attackDistance)
 			{
 				Debug.DrawLine(target1.transform.position, this.transform.position, Color.red);
-				anim.SetBool("EnemyAttacking", true);
-				pjController.HurtPlayer();	
+                anim.SetBool("EnemyAttacking", true);
+                //pjController.HurtPlayer();
+
 			}
 
 		}
@@ -118,7 +121,7 @@ public class EnemyController : MonoBehaviour
 			{
 				Debug.DrawLine(target2.transform.position, this.transform.position, Color.red);
 				anim.SetBool("EnemyAttacking", true);
-				pj2Controller.HurtPlayer();
+				//pj2Controller.HurtPlayer();
 			}
 
 		}

@@ -13,6 +13,8 @@ TagManager:
   - Btn4
   - Btn5
   - Move
+  - Enemy
+  - bridge
   layers:
   - Default
   - TransparentFX

@@ -24,8 +24,11 @@ public class Suriken : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Enemy") { 
-            Destroy(other.gameObject);
+        if (other.gameObject.tag == "Enemy") {
+            other.gameObject.GetComponent<Animator>().SetTrigger("isDead");
+            other.gameObject.GetComponent<EnemyController>().enabled = false;
+            other.gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
+            other.gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
             Destroy(gameObject);
         }
         else if (!(other.gameObject.tag == "Player"))

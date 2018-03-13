@@ -204,6 +204,10 @@ public class PjController : MonoBehaviour {
 
             transform.parent = obj.transform;
         }
+        if (obj.transform.tag == "Enemy")
+        {
+            HurtPlayer();
+        }
     }
 
     void OnCollisionExit2D(Collision2D obj)
@@ -211,6 +215,14 @@ public class PjController : MonoBehaviour {
         if (obj.transform.tag == "Move")
         {
             transform.parent = null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "bridge")
+        {
+            collision.gameObject.GetComponentInChildren<Animator>().Play("puente");
         }
     }
 
