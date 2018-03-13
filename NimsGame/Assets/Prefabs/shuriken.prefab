@@ -122,6 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   surikenSpeed: 20
   surikenSound: {fileID: 0}
+  isOn: {fileID: 1435642419944250, guid: 66bf0ad74847c314a800bb28f72fd3ce, type: 2}
 --- !u!212 &212720242935868318
 SpriteRenderer:
   m_ObjectHideFlags: 1
