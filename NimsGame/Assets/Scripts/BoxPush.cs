@@ -14,7 +14,7 @@ public class BoxPush : MonoBehaviour {
         rb= GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    void Update()
     {
 
         if (empujarCaja == true)
@@ -54,10 +54,5 @@ public class BoxPush : MonoBehaviour {
         {
             empujarCaja = false;
         }
-      
-
     }
-
-
-
 }
