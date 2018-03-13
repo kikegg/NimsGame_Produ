@@ -18,7 +18,15 @@ public class Pj2Controller : MonoBehaviour
     public LayerMask groundMask;
     public float jumpPushForce = 10f;
 
-    bool facingRight;
+    public bool facingRight;
+
+    //Lives&GameOver
+    public bool isDead=false;
+    public int lives;
+    public GameObject[] p2Hearts;
+    public AudioSource hurtSound;
+    public GameObject gameOver;
+    public AudioSource gameOverS;
 
 
     // Use this for initialization
@@ -26,6 +34,8 @@ public class Pj2Controller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        isDead = false;
+
     }
 
     void FixedUpdate()
@@ -67,5 +77,40 @@ public class Pj2Controller : MonoBehaviour
             facingRight = true;
         else
             facingRight = false;
+
+        if (lives <= 0)
+        {
+            //animación muerte personaje
+            gameOver.SetActive(true);
+            this.gameObject.SetActive(false);
+            gameOverS.Play();
+        }
+    }
+
+    public void HurtPlayer()
+    {
+        lives -= 1;
+        for (int i = 0; i < p2Hearts.Length; i++)
+        {
+            if (lives > i)
+            {
+                p2Hearts[i].SetActive(true);
+            }
+            else
+            {
+                p2Hearts[i].SetActive(false);
+            }
+        }
+        hurtSound.Play();
+    }
+
+    void OnCollisionEnter2D(Collision2D obj)
+    {
+
+        if (obj.transform.tag == "Move")
+        {
+
+            transform.parent = obj.transform.gameObject.transform.parent;
+        }
     }
 }

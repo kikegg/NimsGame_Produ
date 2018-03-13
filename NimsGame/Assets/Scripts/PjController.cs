@@ -7,19 +7,20 @@ public class PjController : MonoBehaviour {
 	Rigidbody2D rb;
 	public float speed;
 	Animator anim;
+    public bool dobleSalto;
 
     //JumpVariables
     public bool grounded;
-    bool touchingWall = false;
+    //bool touchingWall = false;
     public float jumpHeight;
 
 	public Transform groundCheckPoint;
-    public Transform wallCheck;
+    //public Transform wallCheck;
     public float groundCheckRadius;
-    public float wallTouchRadius;
+    //public float wallTouchRadius;
 	public LayerMask groundMask;
-    public LayerMask whatIsWall;
-    public float jumpPushForce = 10f;
+    //public LayerMask whatIsWall;
+    //public float jumpPushForce = 10f;
 
 
     //BlinkVariables
@@ -33,8 +34,17 @@ public class PjController : MonoBehaviour {
     public GameObject suriken;
     public Transform throwPoint;
     float surikenTimer=1.5f;
-    public float surikenWait;
+    //public float surikenWait;
     public float puedeLanzar=0;
+
+    //Lives&GameOver
+    public bool isDead=false;
+    public int lives;
+    public GameObject[] p1Hearts;
+    public AudioSource hurtSound;
+    public GameObject gameOver;
+    public AudioSource gameOverS;
+
 
 
     // Use this for initialization
@@ -42,9 +52,14 @@ public class PjController : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
         canBlink = true;
-	}
+        isDead = false;
+    }
 
 	void FixedUpdate(){
+        if (grounded)
+        {
+            dobleSalto = false;
+        }
 
         if (Input.GetAxis("Horizontal") < 0)
         {
@@ -61,11 +76,22 @@ public class PjController : MonoBehaviour {
             anim.SetBool("Moving", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.W) && grounded)
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            rb.velocity = new Vector2(0, jumpHeight);
+            if (grounded || !dobleSalto)
+            {
+                rb.velocity = new Vector2(0, jumpHeight);
+                if (!dobleSalto && !grounded)
+                {
+                    dobleSalto = true;
+                }
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.W) && touchingWall)
+
+        /*
+         * WALLJUMP
+         * 
+         * else if (Input.GetKeyDown(KeyCode.W) && touchingWall)
         {
             if (facingRight)
             {
@@ -77,18 +103,19 @@ public class PjController : MonoBehaviour {
                 rb.velocity = new Vector2(50, 18);
                 transform.localScale = new Vector3(1, 1, 1);
             }
-        }
+        }*/
+
 
         //Shot
         if (Input.GetKeyDown(KeyCode.K) && (puedeLanzar >= surikenTimer))
         {
             anim.SetTrigger("Throw");
-            surikenWait += Time.deltaTime;
-            if (surikenWait >= 0.02f)
-            {
-                GameObject surikenClone = (GameObject)Instantiate(suriken, throwPoint.position, throwPoint.rotation);
-                surikenClone.transform.localScale = transform.localScale;
-            }
+            //surikenWait += Time.deltaTime;
+            //if (surikenWait >= 0.02f)
+            //{
+            GameObject surikenClone = (GameObject)Instantiate(suriken, throwPoint.position, throwPoint.rotation);
+            surikenClone.transform.localScale = transform.localScale;
+            //}
             puedeLanzar = 0;
         }
 
@@ -117,7 +144,7 @@ public class PjController : MonoBehaviour {
 	void Update () {
 
         grounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, groundMask);
-        touchingWall = Physics2D.OverlapCircle(wallCheck.position, wallTouchRadius, whatIsWall);
+        //touchingWall = Physics2D.OverlapCircle(wallCheck.position, wallTouchRadius, whatIsWall);
 
         anim.SetBool("Grounded", grounded);
 
@@ -129,7 +156,15 @@ public class PjController : MonoBehaviour {
             facingRight = false;
 
         puedeLanzar += Time.deltaTime;
-        surikenWait = 0;
+        //surikenWait = 0;
+
+        if (lives <= 0)
+        {   
+            //animación muerte personaje
+            gameOver.SetActive(true);
+            this.gameObject.SetActive(false);
+            gameOverS.Play();
+        }
 
     }
 
@@ -143,4 +178,52 @@ public class PjController : MonoBehaviour {
 
         transform.position += blink;
     }
+
+    public void HurtPlayer()
+    {
+        lives -= 1;
+        for (int i = 0; i < p1Hearts.Length; i++)
+        {
+            if (lives > i)
+            {
+                p1Hearts[i].SetActive(true);
+            }
+            else
+            {
+                p1Hearts[i].SetActive(false);
+            }
+        }
+        hurtSound.Play();
+    }
+
+    void OnCollisionEnter2D(Collision2D obj)
+    {
+
+        if (obj.transform.tag == "Move")
+        {
+
+            transform.parent = obj.transform;
+        }
+        if (obj.transform.tag == "Enemy")
+        {
+            HurtPlayer();
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D obj)
+    {
+        if (obj.transform.tag == "Move")
+        {
+            transform.parent = null;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "bridge")
+        {
+            collision.gameObject.GetComponentInChildren<Animator>().Play("puente");
+        }
+    }
+
 }

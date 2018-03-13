@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 50305213305713006}
   - component: {fileID: 70491944749887832}
   - component: {fileID: 114772152086120644}
+  - component: {fileID: 114752224345954380}
   m_Layer: 0
   m_Name: Character1
   m_TagString: Player
@@ -109,7 +110,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667410923621388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.39, z: 0}
+  m_LocalPosition: {x: 926, y: 98, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4999904785120004}
@@ -183,6 +184,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114752224345954380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1667410923621388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c13e6f9f55b8c41b27e8e16c158e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxJoint: {fileID: 0}
+  p2: {fileID: 0}
 --- !u!114 &114772152086120644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -195,26 +209,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
+  dobleSalto: 0
   grounded: 0
   jumpHeight: 18
   groundCheckPoint: {fileID: 4999904785120004}
-  wallCheck: {fileID: 4760149330312204}
   groundCheckRadius: 0.1
-  wallTouchRadius: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 512
-  jumpPushForce: 10
   blinkDistance: 3
   blinkTime: 5
   canBlink: 1
   suriken: {fileID: 1973907483956348, guid: b0cffe92a485dbb409dccb37dc64f4f2, type: 2}
   throwPoint: {fileID: 4415559003335018}
-  surikenWait: 0
   puedeLanzar: 0
+  isDead: 0
+  lives: 3
+  p1Hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  hurtSound: {fileID: 0}
+  gameOver: {fileID: 0}
+  gameOverS: {fileID: 0}
 --- !u!212 &212705681247428664
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -224,6 +241,7 @@ SpriteRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -239,6 +257,7 @@ SpriteRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5

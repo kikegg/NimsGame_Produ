@@ -5,18 +5,30 @@ using UnityEngine;
 public class BoxPlayer : MonoBehaviour {
 
     public FixedJoint2D boxJoint;
-    public GameObject box;
+    Vector3 positionP1;
+    public GameObject p2;
 
-    private void Start()
+    private void Update()
     {
-        boxJoint = GetComponentInParent<FixedJoint2D>();
-        box = this.transform.parent.gameObject;
+        positionP1 = new Vector3(0, 0, 0);
     }
-    private void OnTriggerEnter2D(Collider2D other)
+
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if ((other.gameObject.tag == "Player") && (boxJoint.enabled == true))
+        this.gameObject.GetComponent<Rigidbody2D>().mass = 1;
+        //this.gameObject.GetComponent<Rigidbody2D>().drag = 1;
+        try
         {
-            other.gameObject.transform.parent = box.transform;
+            if ((other.gameObject.transform.parent.tag == "pushable") && (boxJoint.enabled == true))
+            {
+                positionP1 = new Vector3(other.transform.position.x, this.transform.position.y, other.transform.position.z);
+                this.transform.position = positionP1;
+                this.transform.localScale = p2.transform.localScale;
+            }
+        }
+        catch (System.NullReferenceException)
+        {
+
         }
     }
 }
