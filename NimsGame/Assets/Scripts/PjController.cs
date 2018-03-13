@@ -218,6 +218,7 @@ public class PjController : MonoBehaviour {
         if (collision.gameObject.tag == "bridge")
         {
             collision.gameObject.GetComponentInChildren<Animator>().Play("puente");
+            collision.gameObject.GetComponent<AudioSource>().Play();
         }
     }
 
