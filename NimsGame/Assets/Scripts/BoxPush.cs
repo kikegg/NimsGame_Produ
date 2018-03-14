@@ -36,7 +36,7 @@ public class BoxPush : MonoBehaviour {
             this.gameObject.GetComponent<Animator>().Play("Idle");
             box.GetComponent<FixedJoint2D>().enabled = false;
             box.GetComponent<Rigidbody2D>().mass = 1;
-            box.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX ;
+            box.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
             empujarCaja = false;
         }
 
