@@ -7,6 +7,7 @@ public class Jail : MonoBehaviour {
     public GameObject txt;
     public GameObject sprite;
     public GameObject gm;
+    public AudioSource jailOpen;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class Jail : MonoBehaviour {
         {
             if (count == 2)
             {
+                jailOpen.Play();
                 sprite.SetActive(false);
                 Destroy(this.gameObject);
                 gm.GetComponent<CharacterSwitch>().enabled = true;

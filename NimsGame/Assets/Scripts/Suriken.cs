@@ -7,6 +7,7 @@ public class Suriken : MonoBehaviour {
     private Rigidbody2D theRB;
     public AudioSource surikenSound;
     public GameObject isOn;
+    public AudioClip hit;
 
     //public GameObject surikenEffect;
 
@@ -25,6 +26,8 @@ public class Suriken : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Enemy") {
+            other.gameObject.GetComponent<AudioSource>().clip = hit;
+            other.gameObject.GetComponent<AudioSource>().Play();
             other.gameObject.GetComponent<Animator>().SetTrigger("isDead");
             other.gameObject.GetComponent<EnemyController>().enabled = false;
             other.gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
@@ -38,6 +41,8 @@ public class Suriken : MonoBehaviour {
 
         if(other.gameObject.tag == "Btn1" || other.gameObject.tag == "Btn2" || other.gameObject.tag == "Btn3" || other.gameObject.tag == "Btn4")
         {
+            other.gameObject.GetComponent<AudioSource>().clip = hit;
+            other.gameObject.GetComponent<AudioSource>().Play();
             other.gameObject.GetComponent<SpriteRenderer>().sprite = isOn.GetComponent<SpriteRenderer>().sprite;
             if(other.gameObject.tag == "Btn1")
             {
